@@ -1,20 +1,41 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 
-const AddStudent = () => {
-  const [fields, setFields] = useState({
-    name: '',
-    surname: '',
-    email: '',
-    dateOfBirth: '',
-  });
+const initialState = {
+  name: '',
+  surname: '',
+  email: '',
+  dateOfBirth: '',
+};
+const AddStudent = ({ fetchStudents }) => {
+  const [fields, setFields] = useState(initialState);
+
+  const addStudent = async () => {
+    const resp = await fetch('http://localhost:3001/students', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(fields),
+    });
+    if (resp.ok) {
+      console.log(resp);
+      fetchStudents();
+      setFields(initialState);
+    }
+  };
 
   const handleChange = (e) => {
     setFields({ ...fields, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addStudent();
+  };
   return (
     <Col xs={6}>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label>Name</Form.Label>
           <Form.Control
