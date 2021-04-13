@@ -4,15 +4,13 @@ import SingleStudent from './SingleStudent';
 
 const StudentList = ({ students }) => {
   return (
-    <Row className='justify-content-center'>
-      <Col xs={6}>
-        <ListGroup>
-          {students.map((student) => (
-            <SingleStudent key={uuidv4()} {...student} />
-          ))}
-        </ListGroup>
-      </Col>
-    </Row>
+    <Col xs={6}>
+      <ListGroup>
+        {students.map((student) => (
+          <SingleStudent key={uuidv4()} {...student} />
+        ))}
+      </ListGroup>
+    </Col>
   );
 };
 
