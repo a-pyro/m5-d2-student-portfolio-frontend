@@ -7,7 +7,7 @@ const MainPage = () => {
   const [students, setStudents] = useState([]);
 
   const fetchStudentsCallback = async () => {
-    const resp = await fetch('http://localhost:3001/students/');
+    const resp = await fetch('http://localhost:3001/students');
     const students = await resp.json();
     setStudents(students);
   };

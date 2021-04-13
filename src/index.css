@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
-#app {
+#root {
   background-color: #333;
+  min-height: 100vh;
 }

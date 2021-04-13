@@ -10,18 +10,34 @@ const initialState = {
 const AddStudent = ({ fetchStudents }) => {
   const [fields, setFields] = useState(initialState);
 
-  const addStudent = async () => {
-    const resp = await fetch('http://localhost:3001/students', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(fields),
-    });
-    if (resp.ok) {
-      console.log(resp);
-      fetchStudents();
-      setFields(initialState);
+  const postStudent = async () => {
+    const checkEmail = await fetch(
+      'http://localhost:3001/students/checkEmail',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: fields.email }),
+      }
+    );
+    const emailIsPresent = await checkEmail.json();
+    console.log(emailIsPresent);
+    if (!emailIsPresent) {
+      const resp = await fetch('http://localhost:3001/students', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fields),
+      });
+      if (resp.ok) {
+        console.log(resp);
+        fetchStudents();
+        setFields(initialState);
+      }
+    } else {
+      alert(`there's already a user with the email ${fields.email}`);
     }
   };
 
@@ -31,7 +47,7 @@ const AddStudent = ({ fetchStudents }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addStudent();
+    postStudent();
   };
   return (
     <Col xs={6}>
