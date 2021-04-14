@@ -6,11 +6,11 @@ const SingleStudent = ({
   surname,
   email,
   dateOfBirth,
-  _id,
+  id,
   fetchStudents,
 }) => {
   const deleteUser = async () => {
-    const resp = await fetch(`http://localhost:3001/students/${_id}`, {
+    const resp = await fetch(`http://localhost:3001/students/${id}`, {
       method: 'DELETE',
     });
     console.log(resp);
@@ -37,7 +37,7 @@ const SingleStudent = ({
           surname={surname}
           email={email}
           dateOfBirth={dateOfBirth}
-          _id={_id}
+          id={id}
           fetchStudents={fetchStudents}
         >
           <Badge

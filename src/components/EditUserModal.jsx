@@ -6,7 +6,7 @@ const EditUserModal = ({
   surname,
   email,
   dateOfBirth,
-  _id,
+  id,
   fetchStudents,
   children,
 }) => {
@@ -23,7 +23,7 @@ const EditUserModal = ({
   const handleShow = () => setShow(true);
 
   const editStudent = async () => {
-    const resp = await fetch(`http://localhost:3001/students/${_id}`, {
+    const resp = await fetch(`http://localhost:3001/students/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
